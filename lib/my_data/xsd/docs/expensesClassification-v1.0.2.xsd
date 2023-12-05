@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ecls="https://www.aade.gr/myDATA/expensesClassificaton/v1.0" xmlns:inv="http://www.aade.gr/myDATA/invoice/v1.0" targetNamespace="https://www.aade.gr/myDATA/expensesClassificaton/v1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.2">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ecls="https://www.aade.gr/myDATA/expensesClassificaton/v1.0" xmlns:inv="http://www.aade.gr/myDATA/invoice/v1.0" targetNamespace="https://www.aade.gr/myDATA/expensesClassificaton/v1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.7">
 	<xs:element name="ExpensesClassificationsDoc">
 		<xs:annotation>
 			<xs:documentation>Χαρατηρισμοί Εξόδων Πρότυπων Παραστατικών ΑΑΔΕ</xs:documentation>
@@ -35,12 +35,23 @@
 					<xs:simpleType>
 						<xs:restriction base="xs:int">
 							<xs:minInclusive value="1"/>
-							<xs:maxInclusive value="1"/>
+							<xs:maxInclusive value="2"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
 				<xs:element name="invoicesExpensesClassificationDetails" type="ecls:InvoicesExpensesClassificationDetailType" maxOccurs="unbounded"/>
 			</xs:choice>
+			<xs:element name="classificationPostMode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Μέθοδος Υποβολής Χαρακτηρισμού</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:byte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="InvoicesExpensesClassificationDetailType">
@@ -75,6 +86,21 @@
 			<xs:element name="amount" type="ecls:AmountType">
 				<xs:annotation>
 					<xs:documentation>Ποσό Χαρακτηρισμού</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vatAmount" type="ecls:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Πόσο Φόρου</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vatCategory" type="ecls:VatType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Κατηγορία ΦΠΑ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vatExemptionCategory" type="ecls:VatExemptionType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Κατηγορία Εξαίρεσης ΦΠΑ</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="id" type="xs:byte" minOccurs="0">
@@ -163,6 +189,19 @@
 			<xs:enumeration value="VAT_364"/>
 			<xs:enumeration value="VAT_365"/>
 			<xs:enumeration value="VAT_366"/>
+			<xs:enumeration value="E3_103"/>
+			<xs:enumeration value="E3_203"/>
+			<xs:enumeration value="E3_303"/>
+			<xs:enumeration value="E3_208"/>
+			<xs:enumeration value="E3_308"/>
+			<xs:enumeration value="E3_314"/>
+			<xs:enumeration value="E3_106"/>
+			<xs:enumeration value="E3_205"/>
+			<xs:enumeration value="E3_305"/>
+			<xs:enumeration value="E3_210"/>
+			<xs:enumeration value="E3_310"/>
+			<xs:enumeration value="E3_318"/>
+			<xs:enumeration value="E3_598_002"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ExpensesClassificationCategoryType">
@@ -188,6 +227,18 @@
 		<xs:restriction base="xs:decimal">
 			<xs:fractionDigits value="2"/>
 			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VatType">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VatExemptionType">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="31"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
