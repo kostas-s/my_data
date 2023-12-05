@@ -44,6 +44,11 @@
 							<xs:documentation>Συμβολοσειρά Αυθεντικοποίησης Παρόχου</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="qrUrl" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Κωδικοποιημένο αλφαριθμητικό για παραγωγή QR code</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="receptionProviders" type="receptionProvidersType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Πάροχοι Λήπτη</xs:documentation>
